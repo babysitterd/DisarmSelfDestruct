@@ -12,6 +12,7 @@ public:
   };
 
   explicit CrackCodeGame(int layersCount);
+  explicit CrackCodeGame(std::vector<Direction> const& code);
 
   void Guess(Direction guess);
 

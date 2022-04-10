@@ -16,6 +16,12 @@ CrackCodeGame::CrackCodeGame(int layersCount) :
   }
 }
 
+CrackCodeGame::CrackCodeGame(std::vector<Direction> const& code) :
+  m_layersCount(static_cast<int>(code.size())),
+  m_code(code)
+{
+}
+
 void CrackCodeGame::Guess(Direction guess)
 {
   if (IsSolved())
