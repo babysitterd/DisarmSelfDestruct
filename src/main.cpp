@@ -13,7 +13,7 @@ namespace
 {
 
 constexpr int CanvasSize = 150;
-constexpr int LayersCount = 5;
+constexpr std::size_t LayersCount = 5;
 
 std::optional<CrackCodeGame::Direction> EventToDirection(ftxui::Event const& e)
 {
@@ -61,9 +61,9 @@ int main()
     auto c = Canvas(CanvasSize, CanvasSize);
 
     // draw layers
-    const auto delta = CanvasSize / 2 / (LayersCount + 1);
+    const auto delta = CanvasSize / 2 / (static_cast<int>(LayersCount) + 1);
     auto radius = CanvasSize / 2;
-    for (int i = 0; i < LayersCount; ++i, radius -= delta)
+    for (std::size_t i = 0; i < LayersCount; ++i, radius -= delta)
     {
       auto color = i % 2 == 0 ? Color::BlueLight : Color::Blue;
       if (i == puzzle.ActiveLayer())

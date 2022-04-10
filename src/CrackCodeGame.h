@@ -11,19 +11,18 @@ public:
     up, right, down, left, count
   };
 
-  explicit CrackCodeGame(int layersCount);
-  explicit CrackCodeGame(std::vector<Direction> const& code);
+  explicit CrackCodeGame(std::size_t layersCount);
+  explicit CrackCodeGame(std::vector<Direction> code);
 
   void Guess(Direction guess);
 
-  [[nodiscard]] int ActiveLayer() const;
+  [[nodiscard]] std::size_t ActiveLayer() const;
 
   [[nodiscard]] std::optional<bool> const& LastGuess() const;
   [[nodiscard]] bool IsSolved() const;
 
 private:
-  int const m_layersCount;
-  int m_activeLayer = 0;
+  std::size_t m_activeLayer = 0;
   std::vector<Direction> m_code;
   std::optional<bool> m_lastGuess;
 };
