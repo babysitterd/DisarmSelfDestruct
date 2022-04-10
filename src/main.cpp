@@ -4,6 +4,9 @@
 #include <ftxui/component/screen_interactive.hpp>
 #include <ftxui/screen/color.hpp>
 
+#include <optional>
+#include <fmt/core.h>
+
 #include "CrackCodeGame.h"
 
 namespace
@@ -12,7 +15,32 @@ namespace
 constexpr int CanvasSize = 150;
 constexpr int LayersCount = 5;
 
+std::optional<CrackCodeGame::Direction> EventToDirection(ftxui::Event const& e)
+{
+  if (e == ftxui::Event::ArrowUp)
+  {
+    return CrackCodeGame::up;
+  }
+
+  if (e == ftxui::Event::ArrowRight)
+  {
+    return CrackCodeGame::right;
+  }
+
+  if (e == ftxui::Event::ArrowDown)
+  {
+    return CrackCodeGame::down;
+  }
+
+  if (e == ftxui::Event::ArrowLeft)
+  {
+    return CrackCodeGame::left;
+  }
+
+  return { };
 }
+
+} // namespace
 
 int main()
 {
@@ -66,16 +94,17 @@ int main()
   });
 
   auto timerRenderer = Renderer([&] {
-    auto message = text("TIME LEFT:") | color(Color::Yellow);
+    std::string const format("{:<15}");
+    auto message = text(fmt::format(format, "TIME LEFT:")) | color(Color::Yellow);
 
     if (puzzle.IsSolved())
     {
-      message = text("YOU WON   ") | color(Color::Green);
+      message = text(fmt::format(format, "YOU WON!")) | color(Color::Green);
     }
 
     if (timeLeft == 0)
     {
-      message = text("YOU LOST  ") | color(Color::Red);
+      message = text(fmt::format(format, "YOU LOST :[")) | color(Color::Red);
     }
 
     auto document = border(hbox({
@@ -105,24 +134,10 @@ int main()
       return true;
     }
 
-    if (e == Event::ArrowUp)
+    auto const direction = EventToDirection(e);
+    if (direction)
     {
-      puzzle.Guess(CrackCodeGame::up);
-      return true;
-    }
-    else if (e == Event::ArrowRight)
-    {
-      puzzle.Guess(CrackCodeGame::right);
-      return true;
-    }
-    else if (e == Event::ArrowDown)
-    {
-      puzzle.Guess(CrackCodeGame::down);
-      return true;
-    }
-    else if (e == Event::ArrowLeft)
-    {
-      puzzle.Guess(CrackCodeGame::left);
+      puzzle.Guess(*direction);
       return true;
     }
 
