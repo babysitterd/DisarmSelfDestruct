@@ -94,17 +94,16 @@ int main()
   });
 
   auto timerRenderer = Renderer([&] {
-    std::string const format("{:<15}");
-    auto message = text(fmt::format(format, "TIME LEFT:")) | color(Color::Yellow);
+    auto message = text(fmt::format("{:<15}", "TIME LEFT:")) | color(Color::Yellow);
 
     if (puzzle.IsSolved())
     {
-      message = text(fmt::format(format, "YOU WON!")) | color(Color::Green);
+      message = text(fmt::format(":<15", "YOU WON!")) | color(Color::Green);
     }
 
     if (timeLeft == 0)
     {
-      message = text(fmt::format(format, "YOU LOST :[")) | color(Color::Red);
+      message = text(fmt::format(":<15", "YOU LOST :[")) | color(Color::Red);
     }
 
     auto document = border(hbox({
