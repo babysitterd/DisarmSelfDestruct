@@ -11,6 +11,10 @@ LGTM Has to be set up manually after template is created:
 ## About DisarmSelfDestruct
 Small puzzle game inspired by one of the Mass Effect mini-games [C++ Best Practices Game Jam]
 
+![Screenshot from Mass Effect](inspiredby.png?raw=true "Signal Tracking Quest")
+
+## Rules
+Player have to guess the code to disarm the self destruct of the Rogue AI. Code is a sequence of directions that player must enter in the correct order (on every mistake you'll have to start over). Additionally player has to outrun a self-destruct timer to avoid the big bang! 
 
 ## More Details
 
