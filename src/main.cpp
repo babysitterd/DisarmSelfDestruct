@@ -102,12 +102,12 @@ int main()
 
     if (puzzle.IsSolved())
     {
-      message = text(fmt::format(":<15", "YOU WON!")) | color(Color::Green);
+      message = text(fmt::format("{:>15}", "YOU WON!")) | color(Color::Green);
     }
 
     if (timeLeft == 0)
     {
-      message = text(fmt::format(":<15", "YOU LOST :[")) | color(Color::Red);
+      message = text(fmt::format("{:>15}", "YOU LOST :[")) | color(Color::Red);
     }
 
     auto document = border(hbox({
