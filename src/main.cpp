@@ -40,6 +40,16 @@ std::optional<CrackCodeGame::Direction> EventToDirection(ftxui::Event const& e)
   return { };
 }
 
+auto LayerColor(std::size_t current, std::size_t active)
+{
+      if (current == active)
+      {
+        return ftxui::Color::Yellow;
+      }
+
+      return current % 2 == 0 ? ftxui::Color::BlueLight : ftxui::Color::Blue;
+}
+
 } // namespace
 
 int main()
@@ -65,13 +75,7 @@ int main()
     auto radius = CanvasSize / 2;
     for (std::size_t i = 0; i < LayersCount; ++i, radius -= delta)
     {
-      auto color = i % 2 == 0 ? Color::BlueLight : Color::Blue;
-      if (i == puzzle.ActiveLayer())
-      {
-        color = Color::Yellow;
-      }
-
-      c.DrawBlockCircleFilled(CanvasSize / 2, CanvasSize / 2, radius, color);
+      c.DrawBlockCircleFilled(CanvasSize / 2, CanvasSize / 2, radius, LayerColor(i, puzzle.ActiveLayer()));
     }
     // draw grid
     c.DrawBlockLine(0, 0, CanvasSize, CanvasSize, Color::Default);
@@ -127,7 +131,7 @@ int main()
     }
   });
 
-  auto decoratedTab = CatchEvent(layout, [&](Event const& e) {
+  auto decoratedLayout = CatchEvent(layout, [&](Event const& e) {
     if (isGameOver())
     {
       return true;
@@ -143,5 +147,5 @@ int main()
     return false;
   });
 
-  screen.Loop(decoratedTab);
+  screen.Loop(decoratedLayout);
 }
