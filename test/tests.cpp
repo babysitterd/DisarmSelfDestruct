@@ -2,6 +2,7 @@
 
 #include "../src/CrackCodeGame.h"
 
+// NOLINTBEGIN(readability-function-cognitive-complexity)
 TEST_CASE("CrackCodeGame")
 {
   CrackCodeGame puzzle({ CrackCodeGame::up, CrackCodeGame::down });
@@ -46,3 +47,4 @@ TEST_CASE("CrackCodeGame")
     }
   }
 }
+// NOLINTEND(readability-function-cognitive-complexity)
